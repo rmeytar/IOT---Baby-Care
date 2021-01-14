@@ -1,0 +1,43 @@
+int HotDrinkTemp = 0;
+int IdealDrinkTemp = 0;
+int celsius = 0;
+
+void setup()
+{
+  pinMode(A0, INPUT);
+  pinMode(3, OUTPUT);
+  pinMode(4, OUTPUT);
+  pinMode(5, OUTPUT);
+  pinMode(6, OUTPUT); 
+}
+
+void loop()
+{
+  IdealDrinkTemp = 24;
+  HotDrinkTemp = 35;
+  
+  // fahrenheit to celsius
+  celsius = celsius = map(((analogRead(A0) - 20) * 3.04), 0, 1023, -40, 125);
+  
+  if (celsius < IdealDrinkTemp) {
+    digitalWrite(3,HIGH);
+    digitalWrite(4,LOW);
+    digitalWrite(5,LOW);
+    digitalWrite(6,HIGH);
+  }
+  
+  if (celsius >= IdealDrinkTemp && celsius< HotDrinkTemp) {
+    digitalWrite(3,HIGH);
+    digitalWrite(4,LOW);
+    digitalWrite(5,HIGH);
+    digitalWrite(6,LOW);
+  }
+  
+  if (celsius >= HotDrinkTemp) {
+    digitalWrite(3,LOW);
+    digitalWrite(4,HIGH);
+    digitalWrite(5,LOW);
+    digitalWrite(6,LOW);
+  }
+  delay(10);
+}
